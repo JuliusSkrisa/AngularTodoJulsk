@@ -4,7 +4,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { AuthService } from '@auth0/auth0-angular';
+import { AuthButtonComponent } from '../../auth-button/auth-button.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -14,11 +14,12 @@ import { AuthService } from '@auth0/auth0-angular';
     MatSidenavModule,
     MatListModule,
     MatButtonModule,
-    MatIconModule
+    MatIconModule,
+    AuthButtonComponent
   ],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss'
 })
 export class DashboardComponent {
-  constructor(public auth: AuthService) {}
+  constructor() {}
 }
