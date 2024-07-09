@@ -6,6 +6,7 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
+    "deploy": "ng deploy angular-todo --base-href=https://juliusskrisa.github.io/AngularTodoJulsk/ --repo=https://github.com/juliusskrisa/AngularTodoJulsk.git",
     "test": "ng test"
   },
   "private": true,
