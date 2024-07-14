@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { AuthService, AuthState } from '@auth0/auth0-angular';
 import { Store } from '@ngrx/store';
-import { login } from '../store/auth/auth.actions';
+import { login } from '../../store/auth/auth.actions';
+import { combineLatest, first } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -11,10 +12,16 @@ export class AuthenticationService {
     private authService: AuthService,
     private authState: Store<AuthState>
   ) { 
-    this.authService.getAccessTokenSilently().subscribe((token) => {
-      this.authState.dispatch(login({ token }));
-      console.log('Access token: ', token);
-    });
+  }
+
+  loadState() {
+    combineLatest([
+      this.authService.user$,
+      this.authService.getAccessTokenSilently()
+    ]).pipe(first())
+      .subscribe(([user, token]) => {
+        this.authState.dispatch(login({ user, token }));
+      });
   }
 
   login() {

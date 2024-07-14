@@ -4,16 +4,34 @@ import * as TodoActions from './todo.actions';
 import { Todo } from '../../models/todo';
 
 export interface TodoState {
-    todoList: Todo[];
+    todoLists: {
+        todoItems: Todo[],
+        id: string,
+        title: string,
+    }[]; 
 }
 
 export const initialState: TodoState = {
-    todoList: [],
+    todoLists: [],
 };
 
 export const todoReducer = createReducer(
     initialState,
-    on(TodoActions.addTodoItem, (state, { todo }) => ({ 
-        ...state, todoList: [...state.todoList, todo]
-    })),
+    on(TodoActions.addTodoList, (state, { todoList, title, id }) => {
+        const newTodoList = {
+            todoItems: todoList ?? [],
+            title,
+            id
+        };
+        return { 
+            ...state,
+            todoLists: [...state.todoLists, newTodoList]
+        }
+    }),
+    on(TodoActions.loadTodoList, (state, { todoLists }) => {
+        return { 
+            ...state,
+            todoLists
+        }
+    }),
 );

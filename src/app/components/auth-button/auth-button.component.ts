@@ -1,11 +1,11 @@
 import { AsyncPipe, CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
-import { AuthenticationService } from '../services/authentication.service';
+import { AuthenticationService } from '../../services/authentication/authentication.service';
 import { Store } from '@ngrx/store';
-import { AuthState } from '@auth0/auth0-angular';
+import { AuthState, User } from '@auth0/auth0-angular';
 import { Observable } from 'rxjs';
-import { selectIsLoggedIn } from '../store/auth/auth.selectors';
+import { selectIsLoggedIn, selectLoggedInUser } from '../../store/auth/auth.selectors';
 
 @Component({
   selector: 'app-auth-button',
@@ -13,18 +13,22 @@ import { selectIsLoggedIn } from '../store/auth/auth.selectors';
   imports: [
     AsyncPipe,
     CommonModule,
-    MatButtonModule],
+    MatButtonModule
+  ],
   templateUrl: './auth-button.component.html',
   styleUrl: './auth-button.component.scss'
 })
 export class AuthButtonComponent {
   origin = window.location.origin;
   isAuthenticated$: Observable<boolean>;
+  user$: Observable<User | null>;
+
   constructor(
     private auth: AuthenticationService,
     private authStore: Store<AuthState>
   ) {
     this.isAuthenticated$ = this.authStore.select(selectIsLoggedIn);
+    this.user$ = this.authStore.select(selectLoggedInUser);
   }
 
   login() {

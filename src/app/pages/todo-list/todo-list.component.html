@@ -1,0 +1,35 @@
+<h3 >{{ listTitle }}</h3>
+<mat-list>
+    <ng-container *ngFor="let todo of todoListItems">
+        <mat-list-item>
+            <div class="todo-item-content">
+                <h4 mat-line>Title: {{todo.title}}</h4>
+                <p mat-line>Text: {{todo.text}}</p>
+                <p mat-line class="deadline">Deadline: {{todo.deadline | date: 'mediumDate'}}</p>
+            </div>
+        </mat-list-item>
+        <mat-divider></mat-divider>
+    </ng-container>
+</mat-list>
+
+
+<form [formGroup]="todoForm" (ngSubmit)="onSubmit()">
+    <mat-form-field class="short" appearance="fill">
+      <mat-label>Title</mat-label>
+      <input matInput formControlName="title">
+    </mat-form-field>
+  
+    <mat-form-field appearance="fill">
+      <mat-label>Text</mat-label>
+      <textarea matInput formControlName="text"></textarea>
+    </mat-form-field>
+  
+    <mat-form-field class="short" appearance="fill">
+      <mat-label>Deadline</mat-label>
+      <input matInput [matDatepicker]="picker" formControlName="deadline">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+  
+    <button mat-raised-button color="primary" type="submit" [disabled]="todoForm.invalid || todoForm.pristine">Add Another Todo Item</button>
+  </form>

@@ -1,0 +1,6 @@
+
+<mat-form-field appearance="fill">
+    <mat-label>Todo List</mat-label>
+    <input matInput placeholder="Enter Todo List Name" [(ngModel)]="newListTitle">
+</mat-form-field>
+<button mat-raised-button color="primary" (click)="createNewList()">Create New List</button>
