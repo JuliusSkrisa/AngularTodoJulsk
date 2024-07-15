@@ -15,7 +15,7 @@ import { ActivatedRoute } from '@angular/router';
 import { updateTodoList } from '../../store/todo/todo.actions';
 import { selectTodoLists } from '../../store/todo/todo.selectors';
 import { Subscription, map, switchMap } from 'rxjs';
-import { cloneDeep } from 'lodash';
+import cloneDeep from 'lodash.clonedeep';
 import { MatIconModule } from '@angular/material/icon';
 import { getId } from '../../utils';
 import { ListFilterSearchComponent } from '../../components/list-filter-search/list-filter-search.component';

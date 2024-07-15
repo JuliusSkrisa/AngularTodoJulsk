@@ -20,8 +20,8 @@ export const appConfig: ApplicationConfig = {
     provideEffects(TodoEffects),
     provideHttpClient(withInterceptors([authInterceptor])),
     provideAuth0({
-      domain: '',
-      clientId: '',
+      domain: 'dev-1bumcq00x5myvgtc.us.auth0.com',
+      clientId: 'xR1M6mGVSa2yKcGrY6z3jUdZkvR73nJj',
       authorizationParams: {
         redirect_uri: window.location.origin
       }
