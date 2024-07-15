@@ -11,6 +11,7 @@
         </button>
         <span>the Todo App</span>
         <app-auth-button *ngIf="isAuthenticated$ | async"></app-auth-button>
+        <button class="create-new-list" mat-button color="accent" (click)="createNewList()">Create New List</button>
       </mat-toolbar>
       <div class="content">
           <router-outlet />

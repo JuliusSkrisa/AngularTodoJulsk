@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { AuthService, AuthState } from '@auth0/auth0-angular';
 import { Store } from '@ngrx/store';
 import { login } from '../../store/auth/auth.actions';
-import { combineLatest, first } from 'rxjs';
+import { combineLatest, filter, first, switchMap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -15,12 +15,11 @@ export class AuthenticationService {
   }
 
   loadState() {
-    combineLatest([
-      this.authService.user$,
-      this.authService.getAccessTokenSilently()
-    ]).pipe(first())
-      .subscribe(([user, token]) => {
-        this.authState.dispatch(login({ user, token }));
+    this.authService.isAuthenticated$.pipe(
+      filter(isAuthenticated => isAuthenticated),
+      switchMap(() => combineLatest([this.authService.getAccessTokenSilently(), this.authService.user$.pipe(first(user => !!user))])),
+    ).subscribe(([token, user]) => {
+      this.authState.dispatch(login({ user, token }));
       });
   }
 

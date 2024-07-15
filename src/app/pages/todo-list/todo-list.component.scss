@@ -1,3 +1,11 @@
+.save-list {
+    margin: 30px 0;
+}
+
+button {
+    margin-left: 10px;
+}
+
 mat-form-field {
     display: block;
     margin-bottom: 20px;
@@ -7,19 +15,10 @@ mat-form-field {
     }
 }
 
-.save-list {
-    margin: 30px 0;
-}
-
-.todo-item-content {
+.deadline-container {
     display: flex;
 
-    * {
-        margin: 0 10px;
+    mat-form-field {
+        margin-right: 10px;
     }
-}
-  
-.deadline {
-    color: #999;
-    font-style: italic;
 }

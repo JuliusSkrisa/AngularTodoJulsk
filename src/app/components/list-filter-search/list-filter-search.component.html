@@ -1,0 +1,27 @@
+<div  *ngIf="todoList?.todos?.length">
+    <mat-form-field appearance="fill">
+        <mat-label>Search by title</mat-label>
+        <input matInput [(ngModel)]="searchText">
+    </mat-form-field>
+    
+    <mat-checkbox [(ngModel)]="showCompleted">Show only completed</mat-checkbox>
+    <mat-checkbox [(ngModel)]="showActive">Show only active (deadline not passed)</mat-checkbox>
+    <mat-list>
+        <ng-container *ngFor="let todo of filteredTodos">
+            <mat-list-item>
+                <div class="todo-item-content">
+                    <h4 mat-line>Title: {{todo.title}}</h4>
+                    <span mat-line>Text: {{todo.text}}</span>
+                    <span mat-line class="deadline">Deadline: {{todo.deadline | date: 'short'}}</span>
+                    <mat-checkbox [checked]="todo.completed" (change)="onTodoStatusChange(todo)">
+                      Completed
+                    </mat-checkbox>
+                    <button mat-icon-button color="warn" (click)="deleteTodo(todo.id)">
+                      <mat-icon>delete</mat-icon>
+                    </button>
+                </div>
+            </mat-list-item>
+            <mat-divider></mat-divider>
+        </ng-container>
+    </mat-list>
+</div>

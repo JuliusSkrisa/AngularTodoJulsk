@@ -1,4 +1,5 @@
 export interface Todo {
+    id: string;
     title: string;
     text: string;
     deadline: string;
@@ -6,8 +7,8 @@ export interface Todo {
 }
 
 export interface TodoList {
-    title: string;
     id: string;
-    todoItems: Todo[];
+    title: string;
+    todos?: Todo[];
     owner: string;
 }

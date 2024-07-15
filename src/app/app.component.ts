@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Router, RouterOutlet } from '@angular/router';
 import { AuthButtonComponent } from './components/auth-button/auth-button.component';
 import { AsyncPipe, CommonModule } from '@angular/common';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -35,11 +35,17 @@ import { AuthenticationService } from './services/authentication/authentication.
 export class AppComponent {
   title = 'angular-todo';
   isAuthenticated$: Observable<boolean>;
+
   constructor(
     private authStore: Store<AuthState>,
-    private AuthService: AuthenticationService
+    private authService: AuthenticationService,
+    private router: Router
   ) {
-    this.AuthService.loadState();
+    this.authService.loadState();
     this.isAuthenticated$ = this.authStore.select(selectIsLoggedIn);
+  }
+
+  createNewList() {
+    this.router.navigate(['']);
   }
 }

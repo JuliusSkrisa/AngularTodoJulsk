@@ -1,0 +1,13 @@
+.todo-item-content {
+    display: flex;
+    align-items: center;
+
+    > * {
+        margin: 0 10px;
+    }
+}
+  
+.deadline {
+    color: #999;
+    font-style: italic;
+}

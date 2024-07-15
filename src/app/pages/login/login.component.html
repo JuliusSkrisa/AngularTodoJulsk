@@ -1,2 +1,5 @@
-Please log in to create a TODO list:
-<app-auth-button></app-auth-button>
+<div *ngIf="!loading"> 
+    Please log in to create a TODO list:
+    <app-auth-button></app-auth-button>
+</div>
+<mat-spinner *ngIf="loading" diameter="25"></mat-spinner>

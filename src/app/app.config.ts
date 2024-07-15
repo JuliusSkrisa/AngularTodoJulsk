@@ -9,15 +9,16 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { initialAppState, reducers } from './store/app.reducer';
 import { metaReducers } from './store/logging.metareducer';
 import { TodoEffects } from './store/todo/todo.effects';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
+import { authInterceptor } from './services/authentication/auth.interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
-    provideStore( reducers, { initialState: initialAppState, metaReducers: metaReducers }),
+    provideStore(reducers, { initialState: initialAppState, metaReducers: metaReducers }),
     provideEffects(TodoEffects),
-    provideHttpClient(),
+    provideHttpClient(withInterceptors([authInterceptor])),
     provideAuth0({
       domain: '',
       clientId: '',

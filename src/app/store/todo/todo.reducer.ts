@@ -1,14 +1,10 @@
 
 import { createReducer, on } from '@ngrx/store';
 import * as TodoActions from './todo.actions';
-import { Todo } from '../../models/todo';
+import { Todo, TodoList } from '../../models/todo';
 
 export interface TodoState {
-    todoLists: {
-        todoItems: Todo[],
-        id: string,
-        title: string,
-    }[]; 
+    todoLists: TodoList[]; 
 }
 
 export const initialState: TodoState = {
@@ -17,11 +13,12 @@ export const initialState: TodoState = {
 
 export const todoReducer = createReducer(
     initialState,
-    on(TodoActions.addTodoList, (state, { todoList, title, id }) => {
+    on(TodoActions.addTodoList, (state, { todoList }) => {
         const newTodoList = {
-            todoItems: todoList ?? [],
-            title,
-            id
+            todos: todoList.todos ?? [],
+            title: todoList.title,
+            owner: todoList.owner,
+            id: todoList.id
         };
         return { 
             ...state,
@@ -34,4 +31,18 @@ export const todoReducer = createReducer(
             todoLists
         }
     }),
+    on(TodoActions.updateTodoList, (state, { todoList }) => {
+        const index = state.todoLists.findIndex(list => list.id === todoList.id);
+        const updatedTodoLists = [...state.todoLists];
+
+        if (index !== -1) {
+            updatedTodoLists[index] = todoList;
+        }
+        return {
+            ...state,
+            todoLists: updatedTodoLists
+        }
+    }),
+
+    
 );
