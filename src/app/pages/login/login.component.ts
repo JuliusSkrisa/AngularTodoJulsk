@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 import { AuthState } from '@auth0/auth0-angular';
 import { ActivatedRoute, Router } from '@angular/router';
 import { selectIsLoggedIn } from '../../store/auth/auth.selectors';
-import { first } from 'rxjs';
+import { first, tap } from 'rxjs';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { CommonModule } from '@angular/common';
 
@@ -24,9 +24,10 @@ export class LoginComponent {
     route: ActivatedRoute
   ) {
     authStore.select(selectIsLoggedIn)
-      .pipe(first(isLoggedIn => isLoggedIn))
+      .pipe(
+        first(isLoggedIn => isLoggedIn != undefined))
       .subscribe(isLoggedIn => {
-        this.loading = false;
+        this.loading = false
         if (isLoggedIn) {
           const returnUrl = route.snapshot.queryParams['returnUrl'] || '/';
           router.navigateByUrl(returnUrl); // Navigate to the original URL

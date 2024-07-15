@@ -4,13 +4,12 @@ import * as AuthActions from './auth.actions';
 import { User } from '@auth0/auth0-angular';
 
 export interface AuthState {
-    loggedIn: boolean;
+    loggedIn?: boolean;
     user: User | null;
     token: string | null;
 }
 
 export const initialState: AuthState = {
-    loggedIn: false,
     user: null,
     token: null
 };
@@ -24,6 +23,11 @@ export const authReducer = createReducer(
         loggedIn: true
     })),
     on(AuthActions.logout, (state) => ({ 
+        ...state,
+        loggedIn: false,
+        token: null
+    })),
+    on(AuthActions.loginFailed, (state) => ({ 
         ...state,
         loggedIn: false,
         token: null

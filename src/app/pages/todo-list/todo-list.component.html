@@ -1,7 +1,7 @@
 <h1 >{{ todoList?.title }}</h1>
 <app-list-filter-search [todoList]="todoList"></app-list-filter-search>
 
-<button mat-raised-button color="primary" type="submit" *ngIf="!showNewTodoForm" (click)="showNewTodoForm = true">Add Another Todo Item</button>
+<button mat-raised-button color="primary" type="submit" *ngIf="!showNewTodoForm" (click)="showNewTodoForm = true">Add {{ todoList?.todos?.length ? 'Another' : '' }} Todo Item</button>
 
 <form [formGroup]="newTodoForm" (ngSubmit)="onSubmit()" *ngIf="showNewTodoForm">
     <mat-form-field class="short" appearance="fill">

@@ -20,7 +20,7 @@ import { selectIsLoggedIn, selectLoggedInUser } from '../../store/auth/auth.sele
 })
 export class AuthButtonComponent {
   origin = window.location.origin;
-  isAuthenticated$: Observable<boolean>;
+  isAuthenticated$: Observable<boolean | undefined>;
   user$: Observable<User | null>;
 
   constructor(

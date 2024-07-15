@@ -34,7 +34,7 @@ import { AuthenticationService } from './services/authentication/authentication.
 })
 export class AppComponent {
   title = 'angular-todo';
-  isAuthenticated$: Observable<boolean>;
+  isAuthenticated$: Observable<boolean | undefined>;
 
   constructor(
     private authStore: Store<AuthState>,

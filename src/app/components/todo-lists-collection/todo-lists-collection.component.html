@@ -1,5 +1,8 @@
 <mat-list>
-    <mat-list-item *ngFor="let todoList of todoLists$ | async" (click)="openTodoListDetail(todoList)">
+    <mat-list-item 
+      [class.selected]="todoList.id === selectedTodoListId"
+      *ngFor="let todoList of todoLists$ | async"
+      (click)="openTodoListDetail(todoList)">
       <div>{{ todoList.title }}</div>
     </mat-list-item>
 </mat-list>
