@@ -89,6 +89,7 @@ export class TodoListComponent implements OnDestroy {
           id: getId(),
         });
         this.newTodoForm.reset();
+        this.newTodoForm.value.deadlineTime = '09:00';
         this.showNewTodoForm = false;
       }
     }

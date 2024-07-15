@@ -23,7 +23,7 @@ export const appConfig: ApplicationConfig = {
       domain: 'dev-1bumcq00x5myvgtc.us.auth0.com',
       clientId: 'xR1M6mGVSa2yKcGrY6z3jUdZkvR73nJj',
       authorizationParams: {
-        redirect_uri: window.location.origin
+        redirect_uri: window.location.origin + window.location.pathname
       }
     }),
     provideAnimationsAsync(),

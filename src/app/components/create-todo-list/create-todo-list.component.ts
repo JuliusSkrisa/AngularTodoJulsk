@@ -10,6 +10,7 @@ import { AuthState, User } from '@auth0/auth0-angular';
 import { selectLoggedInUser } from '../../store/auth/auth.selectors';
 import { first } from 'rxjs';
 import { getId } from '../../utils';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-create-todo-list',
@@ -28,7 +29,8 @@ export class CreateTodoListComponent implements OnInit {
   authUser: User | null = null;
   constructor(
     private todoStore: Store<TodoState>,
-    private authStore: Store<AuthState>
+    private authStore: Store<AuthState>,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -40,14 +42,16 @@ export class CreateTodoListComponent implements OnInit {
   }
 
   createNewList() {
+    const id = getId();
     if (this.newListTitle) {
       this.todoStore.dispatch(addTodoList({ 
         todoList: {
           title: this.newListTitle,
-          id: getId(),
+          id,
           owner: this.authUser?.email || ''
         }
       }));
     }
+    this.router.navigate(['/todo-list'], { queryParams: { id } });
   }
 }

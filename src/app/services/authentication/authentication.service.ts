@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { AuthService, AuthState } from '@auth0/auth0-angular';
 import { Store } from '@ngrx/store';
 import { login, loginFailed } from '../../store/auth/auth.actions';
-import { combineLatest, first, of, switchMap } from 'rxjs';
+import { combineLatest, first, of, switchMap, withLatestFrom } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -38,6 +38,6 @@ export class AuthenticationService {
   }
 
   logout() {
-    this.authService.logout({ logoutParams: { returnTo: origin } })
+    this.authService.logout({ logoutParams: { returnTo: window.location.origin + window.location.pathname } })
   }
 }
